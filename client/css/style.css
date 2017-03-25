@@ -3,7 +3,7 @@ html, body {
 	margin: 0px;
 	width: 100%;
 	height: 100%;
-	overflow: hidden;
+	overflow-x: hidden;
 }
 body *{
 	box-sizing: border-box;
@@ -12,42 +12,36 @@ body *{
 	-ms-box-sizing: border-box;
 }
 
-.gridTiles{
-        background-color: antiquewhite;
-    height: 75px;
-    width: 82px;
+.getBtn{
+        text-align: center;
+    border: 1px solid #dcd6d6;
+    padding: 50px;
     border-radius: 5px;
-    border: 1px solid #d9c4c4;
-    box-shadow: 1px 1px 1px 1px #c2c0bd;
-    margin: 2px;
+    background: #eae7e7;
 }
-.temp{
-	display: none;
+.heading{
+        min-height: 70px;
+    background-color: #dcd6d6;
+    margin-bottom: 50px;
+    box-shadow: 1px 1px 2px rgba(162, 151, 151, 0.98);
 }
-.hand {
-	cursor: pointer;
+.labelHeading{
+    text-transform: capitalize;
 }
-.matched-grid {
-	background-color: #e7e7e7;
+.inputWidth{
+    width: 70%;
 }
-.filledGrid{
-	    height: 100%;
-    width: 80px;
-    position: relative;
-    left: -15px;
-    border-radius: 4px;
+.selectBox{
+        width: 70%;
+    border: 1px solid #dadada;
+    padding: 6px;
+    margin-top: 10px;
 }
-.overLay{
-	width: 353px;
-    height: 319px;
-    background-color: rgba(0, 0, 0, 0.22);
-    position: absolute;
-    top: 0px;
-    left: 109px;
-    border-radius: 5px;
+.formBackground{
+    background: aliceblue;
+    padding: 20px 30px;
 }
-.startBtn{
-	    position: absolute;
-    top: 126px;
-    left: 143px;
+.reqrd{
+        color: red;
+    font-size: 15px;
 }
