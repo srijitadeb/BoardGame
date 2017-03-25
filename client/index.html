@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Venturesity Demo App</title>
+		<title>Grid game</title>
 		<link rel="stylesheet" href="css/bootstrap.min.css"/> 
 		<link rel="stylesheet" href="css/style.css" />
 		<link rel="stylesheet" href="css/font-awesome.min.css"/>
@@ -18,84 +18,29 @@
 		<script type="text/javascript" src="./js/app.js"></script>
 		<script type="text/javascript" src="./js/controller.js"></script>
 	</head>
-	<body ng-app="formApp" ng-controller="formCtrl">
-		<div class="row heading">
-
-		</div>
-		<div class="container" style="width: 50%">
-			<div class="getBtn" ng-hide="hideDiv">
-				<button type="button" ng-click="searchBtn()"  class="btn btn-primary btn-lg btn-block">GET FORM</button>
-			</div>
-			<form class="form-horizontal formBackground"  ng-show="showDiv" name="myForm" role="form" ng-submit="submitForm()" novalidate>
-				<h3 class="text-center"><strong ng-show="showDiv">Form Name:</strong><span class="labelHeading">{{item.form_name}}</span></h3>
-				<hr ng-show="showDiv"></hr>
-				<div ng-repeat="field in item.form_fields" class="col-md-12">
-					<ng-form name="form">
-					  <div ng-if="field.component=='textinput'" class="form-group">
-					    <label for="inputEmail3" class="control-label labelHeading">{{field.label}}</label> <span class="reqrd" ng-show="field.required == true">*</span>
-					    <!-- <div> -->
-					      <input type="text" name="name" class="form-control inputWidth" id="inputEmail3" ng-readonly="{{field.editable}}"  ng-required="{{field.required}}" value="{{field.description}}" ng-pattern="/{{field.validation}}/" ng-model="field.description">
-
-					      <p ng-show="myForm.name.$error.pattern" class="help-block">You name is required.</p>
-
-					      
-					    <!-- </div> -->
-					  </div>
-					   <div ng-if="field.component =='textarea'" class="form-group">
-					    <label for="inputPassword3" class="control-label labelHeading">{{field.label}}</label><span class="reqrd" ng-show="field.required == true">*</span>
-
-					      <textarea class="form-control inputWidth" rows="3" ng-readonly="{{field.editable}}" ng-required="{{field.required}}">{{field.description}}</textarea>
-					  </div>
-					  <div ng-if="field.component =='radio'" class="form-group">
-					  	<div>
-					  		<label class="labelHeading" style="text-align: left;">{{field.label}}</label><span class="reqrd" ng-show="field.required == true">*</span>
-					  		<div>{{field.description}}</div>
-					  	</div> 
-					  	<div class="col-sm-12">
-							<label class="radio" ng-repeat="radiobtn in field.options">
-							  	<input type="radio" name="inlineRadioOptions" ng-model="field.autoselect" ng-checked="field.autoselect.indexOf(radiobtn) > -1" value="{{field.autoselect}}" ng-readonly="{{field.editable}}" ng-required="{{field.required}}"> {{radiobtn}}
-							</label>
-						</div>
-					  </div>
-					  <div ng-if="field.component =='checkbox'" class="form-group">
-					  	<div>
-					  		<label class="labelHeading" style="text-align: left;">{{field.label}}</label><span class="reqrd" ng-show="field.required == true">*</span>
-					  		<div>{{field.description}}</div>
-					  	</div>
-					  	<div class="col-sm-12">
-							<label class="checkbox" ng-repeat="checkbox in field.options">
-							  	<input type="checkbox"  ng-checked="field.autoselect.indexOf(checkbox) > -1" value="{{checkbox}}" ng-readonly="{{field.editable}}" ng-required="{{field.required}}"> {{checkbox}}
-							</label>
-						</div>
-					  </div>
-					  <div ng-if="field.component =='select'" class="form-group">
-					  	<div>
-					  		<label class="labelHeading" style="text-align: left;">{{field.label}}</label><span class="reqrd" ng-show="field.required == true">*</span>
-					  		<div>{{field.description}}</div>
-					  	</div> 
-					  	<div>
-							<select name="multipleSelect" class="selectBox" id="multipleSelect" ng-model="field.autoselect" multiple>
-							      <option ng-repeat="selectBox in field.options" value="{{selectBox}}">{{selectBox}}</option>
-							</select>
-						</div>
-					  </div>
-
-					</ng-form>
+	<body ng-app="gridgmaeApp" ng-controller="gridgameCtrl">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="hand col-md-3 col-sm-3 col-xs-3 gridTiles" ng-repeat="grid in allcolors track by $index" ng-click="addColor(grid)" ng-class="{'matched-grid': grid.isMatched}">
+					<!-- <div class="temp" ng-class="{gridValue: gridColor.setValue}">{{}}</div> -->
+					<div  class="filledGrid" ng-style="{'background-color': colors[grid.colorIndex]}" ng-show="grid.isVisible || grid.isMatched"></div>
+					</div>
 				</div>
-			    <div class="form-group">
-			    	<div class="col-sm-10">
-			      		<button  ng-show="showDiv" ng-disabled="myForm.$invalid" type="submit" class="btn btn-success btn-lg">Submit</button>
-			    	</div>
-			  </div>
-			</form>
-			<script type="text/ng-template" id="winPopup">
-		        <div class="modal-header">
-		            <h3 class="modal-title">Congratulation</h3>
-		        </div>
-		        <div class="modal-body">
-		            Form submitted successfully
-		        </div>
-    		</script>
+				<div style="margin-top: 30px;"><strong>Score:</strong>{{scoreMatch * 10}}</div>
+				<div><strong>Time left</strong>: {{timeOut}} sec</div>
+				<div class="overLay" ng-hide = "hideDiv">
+					<button type="button" class="btn btn-primary  btn-lg startBtn" ng-click="startGmae()">Start</button>
+				</div>
+			</div>
 		</div>
+		 <script type="text/ng-template" id="winPopup">
+	        <div class="modal-header">
+	            <h3 class="modal-title">Congratulation</h3>
+	        </div>
+	        <div class="modal-body">
+	            You Won !
+	        </div>
+    	</script>
 	</body>
 </html>

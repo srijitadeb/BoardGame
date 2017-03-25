@@ -1,1 +1,1 @@
-var app = angular.module('formApp',['ui.bootstrap']);
+var app = angular.module('gridgmaeApp',['ui.bootstrap']);
